@@ -198,12 +198,15 @@ def atm_system():
     # Demo accounts & cards
     alice = BankAccount(account_number="111111", pin="1234", balance=500.0, owner="Alice")
     bob   = BankAccount(account_number="222222", pin="4321", balance=1200.0, owner="Bob")
+    charlie = BankAccount(account_number="333333", pin="5678", balance=800.0, owner="Charlie")
     atm.add_account(alice)
     atm.add_account(bob)
+    atm.add_account(charlie)
 
     cards: Dict[str, Card] = {
         "1": Card(card_number="111111", pin="1234", holder_name="Alice"),
         "2": Card(card_number="222222", pin="4321", holder_name="Bob"),
+        "3": Card(card_number="333333", pin="5678", holder_name="Charlie"),
     }
 
     print("Welcome to the ATM System!")
@@ -214,7 +217,7 @@ def atm_system():
         print("\nAvailable cards:")
         for k, c in cards.items():
             print(f"  {k}) {c.holder_name} (acct {c.card_number})")
-        pick = input("Insert which card (1/2), or 'q' to quit: ").strip()
+        pick = input("Insert which card (1/2/3), or 'q' to quit: ").strip()
         if pick.lower() == "q":
             print("Goodbye.")
             return
