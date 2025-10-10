@@ -82,11 +82,12 @@ class ATM:
 
 # runnign the demo
 if __name__ == "__main__":
-    # Create three accounts and an ATM
+    # Create four accounts and an ATM
     a1 = BankAccount("333333", "1234", balance=500.0)
     a2 = BankAccount("222222", "4321", balance=1200.0)
     a3 = BankAccount("111111", "5678", balance=800.0)
-    atm = ATM({"333333": a1, "222222": a2, "111111": a3})
+    a4 = BankAccount("444444", "9999", balance=1500.0)
+    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4})
 
     # Use a card for account 333333
     card = Card("333333", "1234")
