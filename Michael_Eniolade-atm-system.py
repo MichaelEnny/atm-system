@@ -82,12 +82,13 @@ class ATM:
 
 # runnign the demo
 if __name__ == "__main__":
-    # Create four accounts and an ATM
+    # Create five accounts and an ATM
     a1 = BankAccount("333333", "1234", balance=500.0)
     a2 = BankAccount("222222", "4321", balance=1200.0)
     a3 = BankAccount("111111", "5678", balance=800.0)
     a4 = BankAccount("444444", "9999", balance=1500.0)
-    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4})
+    a5 = BankAccount("555555", "0000", balance=2000.0)
+    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4, "555555": a5})
 
     # Use a card for account 333333
     card = Card("333333", "1234")
@@ -102,5 +103,20 @@ if __name__ == "__main__":
     print("Transfer:", atm.transfer("222222", 150))       # -> Transfer
     print("Balance (a1):", atm.check_balance())           # 400.0
     print("Balance (a2):", a2.balance)                    # 1350.0
+
+    atm.eject()
+
+    # Test case with account 555555
+    card5 = Card("555555", "0000")
+    assert atm.insert_card(card5)
+    assert atm.enter_pin("0000")
+
+    print("\n--- Test Case 5 ---")
+    print("Balance (a5):", atm.check_balance())                # 2000.0
+    print("Withdraw:", atm.withdraw(500))                      # -> Withdrawal
+    print("Balance (a5):", atm.check_balance())                # 1500.0
+    print("Transfer to a3:", atm.transfer("111111", 300))      # -> Transfer
+    print("Balance (a5):", atm.check_balance())                # 1200.0
+    print("Balance (a3):", a3.balance)                         # 1100.0
 
     atm.eject()
