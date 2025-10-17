@@ -82,14 +82,15 @@ class ATM:
 
 # runnign the demo
 if __name__ == "__main__":
-    # Create six accounts and an ATM
+    # Create seven accounts and an ATM
     a1 = BankAccount("333333", "1234", balance=500.0)
     a2 = BankAccount("222222", "4321", balance=1200.0)
     a3 = BankAccount("111111", "5678", balance=800.0)
     a4 = BankAccount("444444", "9999", balance=1500.0)
     a5 = BankAccount("555555", "0000", balance=2000.0)
     a6 = BankAccount("666666", "7777", balance=3500.0)
-    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4, "555555": a5, "666666": a6})
+    a7 = BankAccount("777777", "3333", balance=5000.0)
+    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4, "555555": a5, "666666": a6, "777777": a7})
 
     # Use a card for account 333333
     card = Card("333333", "1234")
@@ -136,5 +137,24 @@ if __name__ == "__main__":
     print("Transfer to a4:", atm.transfer("444444", 750))      # -> Transfer
     print("Balance (a6):", atm.check_balance())                # 2000.0
     print("Balance (a4):", a4.balance)                         # 2250.0
+
+    atm.eject()
+
+    # Test case with account 777777
+    card7 = Card("777777", "3333")
+    assert atm.insert_card(card7)
+    assert atm.enter_pin("3333")
+
+    print("\n--- Test Case 7 ---")
+    print("Balance (a7):", atm.check_balance())                # 5000.0
+    print("Deposit:", atm.deposit(500))                        # -> Deposit
+    print("Balance (a7):", atm.check_balance())                # 5500.0
+    print("Withdraw:", atm.withdraw(2000))                     # -> Withdrawal
+    print("Balance (a7):", atm.check_balance())                # 3500.0
+    print("Transfer to a2:", atm.transfer("222222", 1000))     # -> Transfer
+    print("Balance (a7):", atm.check_balance())                # 2500.0
+    print("Balance (a2):", a2.balance)                         # 2350.0
+    print("Deposit again:", atm.deposit(100))                  # -> Deposit
+    print("Balance (a7):", atm.check_balance())                # 2600.0
 
     atm.eject()
