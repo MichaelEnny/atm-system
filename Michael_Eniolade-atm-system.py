@@ -82,7 +82,7 @@ class ATM:
 
 # runnign the demo
 if __name__ == "__main__":
-    # Create seven accounts and an ATM
+    # Create eight accounts and an ATM
     a1 = BankAccount("333333", "1234", balance=500.0)
     a2 = BankAccount("222222", "4321", balance=1200.0)
     a3 = BankAccount("111111", "5678", balance=800.0)
@@ -90,7 +90,8 @@ if __name__ == "__main__":
     a5 = BankAccount("555555", "0000", balance=2000.0)
     a6 = BankAccount("666666", "7777", balance=3500.0)
     a7 = BankAccount("777777", "3333", balance=5000.0)
-    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4, "555555": a5, "666666": a6, "777777": a7})
+    a8 = BankAccount("888888", "2222", balance=10000.0)
+    atm = ATM({"333333": a1, "222222": a2, "111111": a3, "444444": a4, "555555": a5, "666666": a6, "777777": a7, "888888": a8})
 
     # Use a card for account 333333
     card = Card("333333", "1234")
@@ -156,5 +157,24 @@ if __name__ == "__main__":
     print("Balance (a2):", a2.balance)                         # 2350.0
     print("Deposit again:", atm.deposit(100))                  # -> Deposit
     print("Balance (a7):", atm.check_balance())                # 2600.0
+
+    atm.eject()
+
+    # Test case with account 888888
+    card8 = Card("888888", "2222")
+    assert atm.insert_card(card8)
+    assert atm.enter_pin("2222")
+
+    print("\n--- Test Case 8 ---")
+    print("Balance (a8):", atm.check_balance())                # 10000.0
+    print("Withdraw:", atm.withdraw(3000))                     # -> Withdrawal
+    print("Balance (a8):", atm.check_balance())                # 7000.0
+    print("Transfer to a1:", atm.transfer("333333", 2000))     # -> Transfer
+    print("Balance (a8):", atm.check_balance())                # 5000.0
+    print("Balance (a1):", a1.balance)                         # 2400.0
+    print("Withdraw again:", atm.withdraw(1500))               # -> Withdrawal
+    print("Balance (a8):", atm.check_balance())                # 3500.0
+    print("Deposit:", atm.deposit(500))                        # -> Deposit
+    print("Balance (a8):", atm.check_balance())                # 4000.0
 
     atm.eject()
