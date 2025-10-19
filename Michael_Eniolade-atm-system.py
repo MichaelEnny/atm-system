@@ -178,3 +178,20 @@ if __name__ == "__main__":
     print("Balance (a8):", atm.check_balance())                # 4000.0
 
     atm.eject()
+
+    # Test case with account 222222
+    card2 = Card("222222", "4321")
+    assert atm.insert_card(card2)
+    assert atm.enter_pin("4321")
+
+    print("\n--- Test Case 9 ---")
+    print("Balance (a2):", atm.check_balance())                # 2350.0 (from previous transfers)
+    print("Deposit:", atm.deposit(650))                        # -> Deposit
+    print("Balance (a2):", atm.check_balance())                # 3000.0
+    print("Transfer to a7:", atm.transfer("777777", 500))      # -> Transfer
+    print("Balance (a2):", atm.check_balance())                # 2500.0
+    print("Balance (a7):", a7.balance)                         # 3100.0
+    print("Withdraw:", atm.withdraw(200))                      # -> Withdrawal
+    print("Balance (a2):", atm.check_balance())                # 2300.0
+
+    atm.eject()
